@@ -10,7 +10,11 @@ movies_bp = Blueprint("movies_bp", __name__)
 def get_movies(sessionService: SessionService):
     sessionService.setSession()
 
-    movies = [Movie(1, "cool movie"), Movie(2, "another awesome movie"), Movie(3, "test movie")]
+    movies = [
+        Movie(1, "cool movie"),
+        Movie(2, "another awesome movie"),
+        Movie(3, "test movie"),
+    ]
 
     movies_data = MovieSchema().dump(movies, many=True)
 
@@ -28,4 +32,4 @@ def like_movies(sessionService: SessionService):
 @movies_bp.route("/liked", methods=["GET"])
 def get_liked_movies(sessionService: SessionService):
     liked_movies = sessionService.getLikedMovies()
-    return jsonify({"movies": liked_movies}), HTTPStatus.FOUND
+    return jsonify(liked_movies), HTTPStatus.OK
