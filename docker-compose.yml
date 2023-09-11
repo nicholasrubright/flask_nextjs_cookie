@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  api:
+    container_name: flask-api
+    build: ./api
+    ports:
+      - 8080:8080
+  client:
+    container_name: client
+    build: ./client
+    volumes:
+      - ./client/src:/client/src
+    ports:
+      - 3000:3000
