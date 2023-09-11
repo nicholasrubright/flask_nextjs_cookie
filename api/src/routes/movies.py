@@ -14,7 +14,7 @@ def get_movies(sessionService: SessionService):
 
     movies_data = MovieSchema().dump(movies, many=True)
 
-    return jsonify({"movies": movies_data}), HTTPStatus.OK
+    return jsonify(movies_data), HTTPStatus.OK
 
 
 @movies_bp.route("/", methods=["POST"])
