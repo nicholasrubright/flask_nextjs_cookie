@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from http import HTTPStatus
+from src.models.movie import Movie, MovieSchema
 from src.services.session import SessionService
 
 movies_bp = Blueprint("movies_bp", __name__)
@@ -8,7 +9,12 @@ movies_bp = Blueprint("movies_bp", __name__)
 @movies_bp.route("/", methods=["GET"])
 def get_movies(sessionService: SessionService):
     sessionService.setSession()
-    return jsonify({"movies": []}), HTTPStatus.OK
+
+    movies = [Movie(1, "cool movie"), Movie(2, "another awesome movie"), Movie(3, "test movie")]
+
+    movies_data = MovieSchema().dump(movies, many=True)
+
+    return jsonify({"movies": movies_data}), HTTPStatus.OK
 
 
 @movies_bp.route("/", methods=["POST"])
