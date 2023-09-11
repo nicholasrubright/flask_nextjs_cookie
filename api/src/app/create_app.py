@@ -4,7 +4,7 @@ from injector import Injector
 from flask_injector import FlaskInjector
 
 from src.app.module import AppModule
-from src.routes import movies_bp
+from src.routes.movies import movies_bp
 
 
 def create_config() -> Config:
@@ -20,7 +20,7 @@ def create_app(name: str) -> Flask:
     app.register_blueprint(movies_bp, url_prefix="/movies")
 
     with app.app_context():
-        injector = Injector([AppModule[app]])
+        injector = Injector([AppModule(app)])
 
     FlaskInjector(app=app, injector=injector)
 
