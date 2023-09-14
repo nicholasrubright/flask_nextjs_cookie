@@ -17,7 +17,7 @@ def get_movies(sessionService: SessionService, movieService: MovieService):
     return jsonify(movies_data), HTTPStatus.OK
 
 
-@movies_bp.route("/", methods=["POST"])
+@movies_bp.route("/liked", methods=["POST"])
 def like_movies(sessionService: SessionService, movieService: MovieService):
     liked_movies = request.form.getlist("movies")
 
@@ -35,6 +35,11 @@ def like_movies(sessionService: SessionService, movieService: MovieService):
 @movies_bp.route("/liked", methods=["GET"])
 def get_liked_movies(sessionService: SessionService):
     try:
+
+        if not sessionService.hasSession():
+            print("No session", flush=True)
+            return jsonify([]), HTTPStatus.OK
+
         liked_movies = sessionService.getLikedMovies()
         return jsonify(liked_movies), HTTPStatus.OK
     except Exception as err:

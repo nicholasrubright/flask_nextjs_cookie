@@ -17,6 +17,8 @@ export default async function Page(props: PageProps) {
 
   const likedMovies = await getLikedMovies();
 
+  console.log("likedMovies: ", likedMovies);
+
   return (
     <div>
       <h1>Hello world!</h1>
@@ -31,7 +33,24 @@ export default async function Page(props: PageProps) {
 }
 
 export async function getLikedMovies() {
-  return [];
+  try {
+    const response = await fetch("http://localhost:3000/api/liked", {
+      method: "GET",
+      cache: "no-cache",
+    });
+
+    if (response.ok) {
+      const movies: Movie[] = await response.json();
+      return movies;
+    }
+
+    console.error("getLikedMovies response was not ok", response);
+
+    return [];
+  } catch (err) {
+    console.log("error: ", err);
+    return [];
+  }
 }
 
 // Likes a movie as your joining

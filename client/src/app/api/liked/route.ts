@@ -1,7 +1,18 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // GET Liked Movies
-export function GET(request: NextRequest) {}
+export async function GET(request: NextRequest) {
+  console.log("GET LIKED MOVIES");
+
+  const apiResponse = await fetch("http://api:8080/movies/liked", {
+    method: "GET",
+    cache: "no-cache",
+  });
+
+  const apiData = await apiResponse.json();
+
+  return NextResponse.json(apiData);
+}
 
 // POST Like Movies
-export function POST(request: NextRequest) {}
+export async function POST(request: NextRequest) {}

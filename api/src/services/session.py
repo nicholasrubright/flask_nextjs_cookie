@@ -10,6 +10,9 @@ class SessionKeys:
 class SessionService:
     movieSchema = MovieSchema()
 
+    def hasSession(self) -> bool:
+        return SessionKeys.LIKED_MOVIES in session
+
     def setSession(self):
         session[SessionKeys.LIKED_MOVIES] = []
 
