@@ -20,13 +20,23 @@ export async function GET(request: NextRequest) {
   const apiData = await apiResponse.json();
   let response = NextResponse.json(apiData);
 
-  const newSetCookie = responseCookies.map((cookie) => {
-    return libCookie.serialize(cookie.name, cookie.value);
+  // const newSetCookies = responseCookies.map((cookie) => {
+  //   return libCookie.serialize(cookie.name, cookie.value);
+  // });
+
+  // console.log("newSetCookies: ", newSetCookies);
+
+  responseCookies.forEach((cookie) => {
+    cookies().set(cookie.name, cookie.value);
   });
 
-  newSetCookie.forEach((cookie) => {
-    response.headers.set("set-cookie", cookie);
-  });
+  console.log("responseCookies: ", responseCookies);
+
+  console.log("cookies currently set: ", cookies().getAll());
+
+  // newSetCookies.forEach((cookie) => {
+  //   response.headers.set("set-cookie", cookie);
+  // });
 
   return response;
 }
