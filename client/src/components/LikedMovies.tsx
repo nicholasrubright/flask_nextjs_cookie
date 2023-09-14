@@ -3,12 +3,12 @@
 import { Movie } from "@/types/models";
 import MovieList from "./Shared/MovieList";
 
-export default function Movies(props: MoviesProps) {
+export default function LikedMovies(props: LikedMoviesProps) {
   const { movies } = props;
 
   return (
     <div>
-      <h2>Movies</h2>
+      <h2>Liked Movies</h2>
       <div>
         <MovieList movies={movies} />
       </div>
@@ -16,6 +16,6 @@ export default function Movies(props: MoviesProps) {
   );
 }
 
-interface MoviesProps {
+interface LikedMoviesProps {
   movies: Movie[];
 }
