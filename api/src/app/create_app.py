@@ -18,7 +18,7 @@ def create_app(name: str) -> Flask:
     app.config.from_object(create_config())
     app.url_map.strict_slashes = False
 
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     app.register_blueprint(movies_bp, url_prefix="/movies")
 

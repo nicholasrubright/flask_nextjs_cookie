@@ -1,6 +1,7 @@
 import Movies from "@/components/Movies";
 import LikedMovies from "@/components/LikedMovies";
 import { Movie } from "@/types/models";
+import { cookies } from "next/headers";
 
 interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -16,8 +17,6 @@ export default async function Page(props: PageProps) {
   }
 
   const likedMovies = await getLikedMovies();
-
-  console.log("likedMovies: ", likedMovies);
 
   return (
     <div>
@@ -44,8 +43,6 @@ export async function getLikedMovies() {
       return movies;
     }
 
-    console.error("getLikedMovies response was not ok", response);
-
     return [];
   } catch (err) {
     console.log("error: ", err);
@@ -63,7 +60,10 @@ export async function getMovies() {
     const response = await fetch("http://localhost:3000/api/movies", {
       method: "GET",
       cache: "no-cache",
+      credentials: "include",
     });
+
+    console.log("cookies on page: ", cookies().getAll());
 
     if (response.ok) {
       const movies: Movie[] = await response.json();

@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 // GET Liked Movies
 export async function GET(request: NextRequest) {
-  console.log("GET LIKED MOVIES");
-
   const apiResponse = await fetch("http://api:8080/movies/liked", {
     method: "GET",
     cache: "no-cache",
